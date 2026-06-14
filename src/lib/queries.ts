@@ -135,6 +135,29 @@ export function addExpense(input: {
   return id;
 }
 
+/**
+ * Delete a single expense and its share rows. Expense_shares cascade via
+ * the schema's ON DELETE CASCADE.
+ */
+export function deleteExpense(expenseId: string): void {
+  getDb().prepare("DELETE FROM expenses WHERE id = ?").run(expenseId);
+}
+
+/**
+ * Remove every expense and member for a group. The group row itself stays
+ * so the shareable link is preserved. Expense_shares cascade via the schema.
+ */
+export function clearGroup(groupId: string): void {
+  const db = getDb();
+  const deleteExpenses = db.prepare("DELETE FROM expenses WHERE group_id = ?");
+  const deleteMembers = db.prepare("DELETE FROM members WHERE group_id = ?");
+  const tx = db.transaction(() => {
+    deleteExpenses.run(groupId);
+    deleteMembers.run(groupId);
+  });
+  tx();
+}
+
 /** Return all expenses for a group, newest first, each with its sharer ids. */
 export function getExpenses(groupId: string): Expense[] {
   const db = getDb();
