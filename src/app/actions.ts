@@ -5,7 +5,9 @@ import { revalidatePath } from "next/cache";
 import {
   addExpense as addExpenseQuery,
   addMember as addMemberQuery,
+  clearGroup as clearGroupQuery,
   createGroup as createGroupQuery,
+  deleteExpense as deleteExpenseQuery,
 } from "@/lib/queries";
 import { parseAmountToCents } from "@/lib/money";
 
@@ -67,5 +69,24 @@ export async function addExpenseAction(formData: FormData): Promise<void> {
     paidBy,
     sharerIds,
   });
+  revalidatePath(`/g/${groupId}`);
+}
+
+export async function deleteExpenseAction(formData: FormData): Promise<void> {
+  const groupId = String(formData.get("groupId") ?? "");
+  const expenseId = String(formData.get("expenseId") ?? "");
+  if (groupId === "" || expenseId === "") {
+    throw new Error("Group id and expense id are required");
+  }
+  deleteExpenseQuery(expenseId);
+  revalidatePath(`/g/${groupId}`);
+}
+
+export async function clearGroupAction(formData: FormData): Promise<void> {
+  const groupId = String(formData.get("groupId") ?? "");
+  if (groupId === "") {
+    throw new Error("Group id is required");
+  }
+  clearGroupQuery(groupId);
   revalidatePath(`/g/${groupId}`);
 }
