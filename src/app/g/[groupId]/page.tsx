@@ -12,6 +12,7 @@ import { ExpenseList } from "@/components/expense-list";
 import { BalancesPanel } from "@/components/balances-panel";
 import { SettlementPanel } from "@/components/settlement-panel";
 import { ShareButton } from "@/components/share-button";
+import { ClearGroupButton } from "@/components/clear-group-button";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -92,6 +93,8 @@ export default function GroupPage({
       <SettlementPanel
         groupName={group.name}
         members={members}
+        expenses={expenses}
+        balances={balances}
         transfers={transfers}
         currency={group.currency}
       />
@@ -99,11 +102,16 @@ export default function GroupPage({
       <section className="card">
         <h2 className="mb-4 text-base font-semibold">Expenses</h2>
         <ExpenseList
+          groupId={group.id}
           members={members}
           expenses={expenses}
           currency={group.currency}
         />
       </section>
+
+      <div className="mt-2 flex justify-center pt-2">
+        <ClearGroupButton groupId={group.id} />
+      </div>
     </main>
   );
 }
