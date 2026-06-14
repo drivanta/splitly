@@ -1,0 +1,47 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.*
+
+# next
+.next/
+out/
+build/
+dist/
+
+# env
+.env
+.env.*
+!.env.example
+
+# data
+data/
+*.sqlite
+*.sqlite-journal
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# coverage / tests
+coverage/
+
+# os
+.DS_Store
+Thumbs.db
+
+# editors
+.vscode/
+.idea/
+*.swp
+.claude/
