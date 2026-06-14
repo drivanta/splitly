@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background-color: theme("colors.brand.cream");
+  color: theme("colors.brand.navy");
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-lg bg-brand-teal px-4 py-2.5 text-sm font-semibold text-brand-navy shadow-sm transition active:scale-[0.98] hover:bg-brand-teal/90 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-lg border border-brand-navy/15 bg-white px-4 py-2.5 text-sm font-medium text-brand-navy shadow-sm transition active:scale-[0.98] hover:bg-brand-navy/5 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .input {
+    @apply block w-full rounded-lg border border-brand-navy/15 bg-white px-3 py-2.5 text-sm text-brand-navy shadow-sm outline-none transition placeholder:text-brand-navy/40 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/30;
+  }
+
+  .label {
+    @apply block text-xs font-semibold uppercase tracking-wide text-brand-navy/60;
+  }
+
+  .card {
+    @apply rounded-2xl bg-white p-5 shadow-sm ring-1 ring-brand-navy/5;
+  }
+}
